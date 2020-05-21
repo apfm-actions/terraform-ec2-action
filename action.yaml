@@ -1,0 +1,67 @@
+name: EC2 Deploy
+description: Deploy an EC2 Instance using Terraform
+inputs:
+
+  instance_type:
+    description: 'AWS Instance Type to deploy the cluster'
+    default: 't3.micro'
+    required: true
+
+  name:
+    description: 'Name of the EC2 Instance'
+    default: ''
+    required: false
+
+  prefix:
+    description: 'Prefix of the EC2 Instance'
+    default: ''
+    required: false
+
+  ami_id:
+    description: 'ID of the AMI'
+    default: ''
+    required: false
+
+  ami_name:
+    description: 'Name of the AMI'
+    default: ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*
+    required: true
+
+  ami_owner:
+    description: 'Owner of the AMI - Default Canonical'
+    default: '099720109477'
+    required: true
+
+  ami_latest:
+    description: 'Latest AMI ?'
+    default: true
+    required: true
+
+  iam_instance_profile:
+    description: The name attribute of the IAM instance profile to associate with launched instances.
+    default: ''
+    required: false
+
+  enable_monitoring:
+    description: 'Monitoring active or disabled'
+    default: false
+    required: true
+
+  security_groups:
+    description: 'List of security groups separated by comma'
+    default: ''
+    required: true
+
+  admin_key:
+    description: 'Key pair to access the server'
+    default: ''
+    required: true
+
+
+outputs:
+  arn:
+    description: 'EC2 Instance ARN'
+
+runs:
+  using: docker
+  image: Dockerfile
