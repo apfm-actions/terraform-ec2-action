@@ -1,15 +1,3 @@
-locals {
-  tags = {
-      app : var.github_project,
-      env : terraform.workspace,
-      repo : var.github_repository
-      project : var.project_name,
-      owner : var.project_owner,
-      email : var.project_email,
-      created_by : "terraform-ec2-action"
-    }
-}
-
 data "aws_region" "current" {}
 
 data "aws_caller_identity" "current" {}
@@ -52,7 +40,7 @@ resource "aws_autoscaling_group" "immutable" {
   launch_configuration      = aws_launch_configuration.main.id
   vpc_zone_identifier       = [var.subnets]
   protect_from_scale_in     = var.protect_from_scale_in
-  suspended_processes       = [var.asg_suspended_processes]
+  #suspended_processes       = [var.asg_suspended_processes]
 
   # Lookup the value of target group arn, if found use it, if not, return empty string
   target_group_arns = (var.loadbalancer == "" ? var.loadbalancer : split(",", var.loadbalancer))
@@ -78,7 +66,7 @@ resource "aws_autoscaling_group" "mutable" {
   launch_configuration      = "${aws_launch_configuration.main.id}"
   vpc_zone_identifier       = ["${var.subnets}"]
   protect_from_scale_in     = "${var.protect_from_scale_in}"
-  suspended_processes       = ["${var.asg_suspended_processes}"]
+  #suspended_processes       = ["${var.asg_suspended_processes}"]
 
   # Lookup the value of target group arn, if found use it, if not, return empty string
   target_group_arns = (var.loadbalancer == "" ? var.loadbalancer : split(",", var.loadbalancer))
