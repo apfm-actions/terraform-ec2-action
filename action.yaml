@@ -87,6 +87,16 @@ inputs:
     default: ''
     required: true
 
+  health_check_type:
+    description: 'EC2 or ELB. Controls how health checking is done.'
+    default: 'EC2'
+    required: true
+
+  health_check_grace_period:
+    description: ''
+    default: '300'
+    required: true
+
 outputs:
   arn:
     description: 'EC2 Instance ARN'
