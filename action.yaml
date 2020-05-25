@@ -67,6 +67,10 @@ inputs:
     default: 12
     required: true
 
+  userdata:
+    description: 'Initial script to run add start of the instance, base64 string'
+    default: ''
+    required: true
 
 outputs:
   arn:

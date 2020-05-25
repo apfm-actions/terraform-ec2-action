@@ -9,5 +9,5 @@ data "aws_ami" "image" {
 }
 
 data "template_file" "userdata" {
-  template = "${var.userdata}"
+  template = base64decode(var.userdata)
 }
