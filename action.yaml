@@ -82,6 +82,11 @@ inputs:
     default: ''
     required: true
 
+  vpc_zone_identifier:
+    description: 'List of subnets'
+    default: ''
+    required: true
+
 outputs:
   arn:
     description: 'EC2 Instance ARN'

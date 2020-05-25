@@ -63,9 +63,9 @@ resource "aws_autoscaling_group" "mutable" {
   desired_capacity          = var.desired_capacity
   max_size                  = var.max_size
   min_size                  = var.min_size
-  launch_configuration      = "${aws_launch_configuration.main.id}"
+  launch_configuration      = aws_launch_configuration.main.id
   vpc_zone_identifier       = ["${var.subnets}"]
-  protect_from_scale_in     = "${var.protect_from_scale_in}"
+  protect_from_scale_in     = var.protect_from_scale_in
   #suspended_processes       = ["${var.asg_suspended_processes}"]
 
   # Lookup the value of target group arn, if found use it, if not, return empty string
