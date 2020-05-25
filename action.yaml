@@ -63,6 +63,9 @@ inputs:
     required: true
     
   volume_size:
+    description: 'Size of the volume'
+    default: 12
+    required: true
 
 
 outputs:
