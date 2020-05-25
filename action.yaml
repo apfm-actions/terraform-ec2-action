@@ -97,6 +97,36 @@ inputs:
     default: '300'
     required: true
 
+  cooldown:
+    description: ''
+    default: '300'
+    required: true
+
+  desired_capacity:
+    description: ''
+    default: '1'
+    required: true
+
+  min_size:
+    description: ''
+    default: '1'
+    required: true
+
+  max_size:
+    description: ''
+    default: '2'
+    required: true
+
+  subnets:
+    description: ''
+    default: ''
+    required: true
+
+  protect_from_scale_in:
+    description: 'This prevents the ASG from terminating instances. If enabled, Terraform will be unable to successfully delete the ASG. Good for protecting stateful application instances from accidental deletion, but may lead to a state where you have to manually terminate instances to make changes.'
+    default: 'false'
+    required: true
+
 outputs:
   arn:
     description: 'EC2 Instance ARN'
