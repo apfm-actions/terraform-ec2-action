@@ -19,8 +19,8 @@ resource "aws_launch_configuration" "main" {
   key_name             = var.admin_key
 
   root_block_device {
-    volume_type = "${var.volume_type}"
-    volume_size = "${var.volume_size}"
+    volume_type = var.volume_type
+    volume_size = var.volume_size
   }
 
   lifecycle {

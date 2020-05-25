@@ -57,6 +57,13 @@ inputs:
     default: ''
     required: true
 
+  volume_type:
+    description: 'Type of storage to use'
+    default: gp2
+    required: true
+    
+  volume_size:
+
 
 outputs:
   arn:
