@@ -34,7 +34,7 @@ inputs:
 
   ami_latest:
     description: 'Latest AMI ?'
-    default: true
+    default: 'true'
     required: true
 
   iam_instance_profile:
@@ -44,7 +44,7 @@ inputs:
 
   enable_monitoring:
     description: 'Monitoring active or disabled'
-    default: false
+    default: 'false'
     required: true
 
   security_groups:
@@ -64,12 +64,17 @@ inputs:
     
   volume_size:
     description: 'Size of the volume'
-    default: 12
+    default: '12'
     required: true
 
   userdata:
     description: 'Initial script to run add start of the instance, base64 string'
     default: ''
+    required: true
+  
+  immutable_cluster:
+    description: 'This variable determines whether you replace instances and LC in a blue-green fashion (true) or if you update the LC/instance is way that does noßt replace the ASG (false)'
+    default: 'true'
     required: true
 
 outputs:

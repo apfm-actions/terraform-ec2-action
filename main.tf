@@ -30,19 +30,19 @@ resource "aws_launch_configuration" "main" {
 
 # Immutable ASGs are designed for stateless applications and will be replaced in blue/green fashion when the LC is updated
 resource "aws_autoscaling_group" "immutable" {
-  count = "${var.immutable_cluster ? 1 : 0}"
+  count = var.immutable_cluster ? 1 : 0
 
-  name                      = "${aws_launch_configuration.main.name}"
-  health_check_type         = "${var.health_check_type}"
-  health_check_grace_period = "${var.health_check_grace_period}"
-  default_cooldown          = "${var.cooldown}"
-  desired_capacity          = "${var.desired_capacity}"
-  max_size                  = "${var.max_size}"
-  min_size                  = "${var.min_size}"
-  launch_configuration      = "${aws_launch_configuration.main.id}"
-  vpc_zone_identifier       = ["${var.subnets}"]
-  protect_from_scale_in     = "${var.protect_from_scale_in}"
-  suspended_processes       = ["${var.asg_suspended_processes}"]
+  name                      = aws_launch_configuration.main.name
+  health_check_type         = var.health_check_type
+  health_check_grace_period = var.health_check_grace_period
+  default_cooldown          = var.cooldown
+  desired_capacity          = var.desired_capacity
+  max_size                  = var.max_size
+  min_size                  = var.min_size
+  launch_configuration      = aws_launch_configuration.main.id
+  vpc_zone_identifier       = [var.subnets]
+  protect_from_scale_in     = var.protect_from_scale_in
+  suspended_processes       = [var.asg_suspended_processes]
 
   # Lookup the value of target group arn, if found use it, if not, return empty string
   target_group_arns = ["${lookup(var.loadbalancer, "target_group_arn", "")}"]
@@ -58,13 +58,13 @@ resource "aws_autoscaling_group" "immutable" {
 resource "aws_autoscaling_group" "mutable" {
   count = "${! var.immutable_cluster ? 1 : 0}"
 
-  name                      = "${var.name}"
-  health_check_type         = "${var.health_check_type}"
-  health_check_grace_period = "${var.health_check_grace_period}"
-  default_cooldown          = "${var.cooldown}"
-  desired_capacity          = "${var.desired_capacity}"
-  max_size                  = "${var.max_size}"
-  min_size                  = "${var.min_size}"
+  name                      = var.name
+  health_check_type         = var.health_check_type
+  health_check_grace_period = var.health_check_grace_period
+  default_cooldown          = var.cooldown
+  desired_capacity          = var.desired_capacity
+  max_size                  = var.max_size
+  min_size                  = var.min_size
   launch_configuration      = "${aws_launch_configuration.main.id}"
   vpc_zone_identifier       = ["${var.subnets}"]
   protect_from_scale_in     = "${var.protect_from_scale_in}"
