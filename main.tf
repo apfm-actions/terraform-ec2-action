@@ -1,4 +1,14 @@
-# Log Management
+locals {
+  tags = {
+      app : var.github_project,
+      env : terraform.workspace,
+      repo : var.github_repository
+      project : var.project_name,
+      owner : var.project_owner,
+      email : var.project_email,
+      created_by : "terraform-ec2-action"
+    }
+}
 
 data "aws_region" "current" {}
 
@@ -45,9 +55,9 @@ resource "aws_autoscaling_group" "immutable" {
   suspended_processes       = [var.asg_suspended_processes]
 
   # Lookup the value of target group arn, if found use it, if not, return empty string
-  target_group_arns = ["${lookup(var.loadbalancer, "target_group_arn", "")}"]
+  target_group_arns = (var.loadbalancer == "" ? var.loadbalancer : split(",", var.loadbalancer))
 
-  tags = ["${local.launch_config_tags}"]
+  tags = local.tags
 
   lifecycle {
     create_before_destroy = true
@@ -71,7 +81,7 @@ resource "aws_autoscaling_group" "mutable" {
   suspended_processes       = ["${var.asg_suspended_processes}"]
 
   # Lookup the value of target group arn, if found use it, if not, return empty string
-  target_group_arns = ["${lookup(var.loadbalancer, "target_group_arn", "")}"]
+  target_group_arns = (var.loadbalancer == "" ? var.loadbalancer : split(",", var.loadbalancer))
 
-  tags = ["${local.launch_config_tags}"]
+  tags = local.tags
 }

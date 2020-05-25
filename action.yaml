@@ -77,6 +77,11 @@ inputs:
     default: 'true'
     required: true
 
+  loadbalancer:
+    description: ''
+    default: ''
+    required: true
+
 outputs:
   arn:
     description: 'EC2 Instance ARN'
