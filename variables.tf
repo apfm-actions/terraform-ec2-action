@@ -10,5 +10,5 @@ locals {
     }
 
   prefix       = (var.prefix == "" ? var.name : var.prefix)
-  target_group = (var.loadbalancer == "" ? var.loadbalancer : split(",", var.loadbalancer))
+  target_group = (var.loadbalancer == "" ? [] : split(",", var.loadbalancer))
 }

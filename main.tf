@@ -43,7 +43,7 @@ resource "aws_autoscaling_group" "immutable" {
   #suspended_processes       = [var.asg_suspended_processes]
 
   # Lookup the value of target group arn, if found use it, if not, return empty string
-  target_group_arns = (var.loadbalancer == "" ? var.loadbalancer : split(",", var.loadbalancer))
+  target_group_arns = (var.loadbalancer == "" ? [] : split(",", var.loadbalancer))
 
   tags = local.tags
 
@@ -69,7 +69,7 @@ resource "aws_autoscaling_group" "mutable" {
   #suspended_processes       = ["${var.asg_suspended_processes}"]
 
   # Lookup the value of target group arn, if found use it, if not, return empty string
-  target_group_arns = (var.loadbalancer == "" ? var.loadbalancer : split(",", var.loadbalancer))
+  target_group_arns = (var.loadbalancer == "" ? [] : split(",", var.loadbalancer))
 
   tags = local.tags
 }
