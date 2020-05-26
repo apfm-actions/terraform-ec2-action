@@ -45,7 +45,7 @@ resource "aws_autoscaling_group" "immutable" {
   # Lookup the value of target group arn, if found use it, if not, return empty string
   target_group_arns = (var.loadbalancer == "" ? [] : split(",", var.loadbalancer))
 
-  tags = local.tags
+  #tags = local.tags
 
   lifecycle {
     create_before_destroy = true
@@ -71,5 +71,5 @@ resource "aws_autoscaling_group" "mutable" {
   # Lookup the value of target group arn, if found use it, if not, return empty string
   target_group_arns = (var.loadbalancer == "" ? [] : split(",", var.loadbalancer))
 
-  tags = local.tags
+  #tags = local.tags
 }
