@@ -1,6 +1,6 @@
 data "aws_ami" "image" {
   most_recent = var.ami_latest
-  owners      = [var.ami_owner]
+  owners      = ["0${var.ami_owner}"]
 
   filter {
     name   = "name"
